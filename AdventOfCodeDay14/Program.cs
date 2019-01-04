@@ -10,7 +10,7 @@ namespace AdventOfCodeDay14
     {
         static void Main(string[] args)
         {
-            var startRecipe = 9;
+            var startRecipe = 633601;
 
             //var input = "37";
             while (true)
@@ -24,7 +24,7 @@ namespace AdventOfCodeDay14
                 var firstPos = 0;
                 var secondPos = 1;
                 var totalRecipes = 2;
-                for (int i = 0; i < 1000000000; i++)
+                for (int i = 0; i < 100000000; i++)
                 {
                     totalRecipes += AddScore(firstScore, secondScore, scores);
                     firstPos = newPos(firstPos, firstScore, scores.Count());
@@ -33,17 +33,44 @@ namespace AdventOfCodeDay14
                     secondScore = scores[secondPos];
                     //printScore(firstPos, secondPos, scores);
 
-                    if (totalRecipes > startRecipe + 10)
-                    {
-                        break;
-                    }
+                    //if (totalRecipes > startRecipe + 10)
+                    //{
+                    //    break;
+                    //}
                 }
 
-                printLastTen(scores, startRecipe);
-                startRecipe = Convert.ToInt32(Console.ReadLine());
+                var theList = ListToString(scores);
+                //printLastTen(scores, startRecipe);
+                while (true)
+                {
+                    Console.WriteLine("Enter the sequence:");
+
+                    var sequence = Console.ReadLine();
+
+                    var index = theList.IndexOf(sequence);
+                    if(index > -1)
+                    {
+                        Console.WriteLine(string.Format("{0}", index));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not Found");
+                    }
+                }
             }
 
         }
+
+        private static string ListToString(List<int> scores)
+        {
+            var s = new StringBuilder();
+            foreach (int t in scores)
+            {
+                s.Append(t);
+            }
+            return s.ToString();
+        }
+
         private static void printLastTen(List<int> scores, int startCount)
         {
             var sb = new StringBuilder();
